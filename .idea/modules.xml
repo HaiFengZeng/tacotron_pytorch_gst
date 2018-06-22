@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../gst-tacotron/.idea/gst-tacotron.iml" filepath="$PROJECT_DIR$/../gst-tacotron/.idea/gst-tacotron.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../mywork/tacotron_min/.idea/tacotron_min.iml" filepath="$PROJECT_DIR$/../../mywork/tacotron_min/.idea/tacotron_min.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tacotron_pytorch.iml" filepath="$PROJECT_DIR$/.idea/tacotron_pytorch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../mywork/wavenet_vocoder/.idea/wavenet_vocoder.iml" filepath="$PROJECT_DIR$/../../mywork/wavenet_vocoder/.idea/wavenet_vocoder.iml" />
+    </modules>
+  </component>
+</project>
