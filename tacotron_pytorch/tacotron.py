@@ -347,7 +347,7 @@ class Tacotron(nn.Module):
             if hparams.use_gst:
                 query = F.tanh(torch.unsqueeze(reference_outputs, 1))
                 key = torch.unsqueeze(self.gst_token, 0)
-                key = key.repeat([2, 1, 1])
+                key = key.repeat([B, 1, 1])
                 style_embedding = self.style_attention(query=query, keys=key)  # [B,1,128]
             else:
                 style_embedding = reference_outputs.unsqueeze(1)
