@@ -27,7 +27,7 @@ import numpy as np
 import nltk
 
 from tacotron_pytorch import Tacotron
-from hparams import hparams
+from gst_hparams import hparams
 
 from tqdm import tqdm
 

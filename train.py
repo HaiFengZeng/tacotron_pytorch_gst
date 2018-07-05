@@ -43,7 +43,7 @@ import sys
 import os
 import tensorboard_logger
 from tensorboard_logger import log_value
-from hparams import hparams, hparams_debug_string
+from gst_hparams import hparams, hparams_debug_string
 
 # Default DATA_ROOT
 DATA_ROOT = join(expanduser("~"), "tacotron", "training")
@@ -197,7 +197,7 @@ def save_states(global_step, mel_outputs, linear_outputs, attn, y,
     signal = audio.inv_spectrogram(linear_output.T)
     path = join(checkpoint_dir, "step{}_predicted.wav".format(
         global_step))
-    audio.save_wav(signal, path)
+    #audio.save_wav(signal, path)
 
     # Target spectrogram
     path = join(checkpoint_dir, "step{}_target_spectrogram.png".format(
@@ -297,8 +297,8 @@ if __name__ == "__main__":
     args = docopt(__doc__)
     print("Command line args:\n", args)
     checkpoint_dir = args["--checkpoint-dir"]
-    checkpoint_path = '/home/zeng/work/pycharm/tacotron_pytorch/checkpoints/checkpoint_step6000.pth'
-    data_root = '/home/zeng/work/pycharm/gst-tacotron/training'  # args["--data-root"]
+    checkpoint_path = None
+    data_root = '/data/tacotron_pytorch_gst/data/cmu'  # args["--data-root"]
     if data_root:
         DATA_ROOT = data_root
 

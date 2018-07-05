@@ -1,7 +1,8 @@
 tacotron_pytorch/version.py
 checkpoints*
+checkpoints/
 log
-
+data
 # Created by https://www.gitignore.io
 
 ### Python ###

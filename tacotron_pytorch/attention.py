@@ -3,7 +3,7 @@ import torch
 from torch.autograd import Variable
 from torch import nn
 from torch.nn import functional as F
-from hparams import hparams
+from gst_hparams import hparams
 
 
 class BahdanauAttention(nn.Module):

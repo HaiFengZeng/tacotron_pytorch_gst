@@ -5,7 +5,7 @@ import torch
 from torch.autograd import Variable
 from torch import nn
 import torch.nn.functional as F
-from hparams import hparams
+from gst_hparams import hparams
 from .attention import MultiHeadAttention, MultiHeadAttentionTest
 from .attention import BahdanauAttention, AttentionWrapper
 from .attention import get_mask_from_lengths
@@ -170,7 +170,10 @@ class ReferenceEncoder(nn.Module):
 
     def forward(self, x):
         for f in self.reference:
-            x = f(x)
+            try:
+                x = f(x)
+            except Exception as e:
+                print(e)
         size = x.size()
         x = x.view(size[:-2] + (size[2] * size[3],))
         x = x.permute(0, 2, 1)
@@ -347,19 +350,19 @@ class Tacotron(nn.Module):
             if hparams.use_gst:
                 query = F.tanh(torch.unsqueeze(reference_outputs, 1))
                 key = torch.unsqueeze(self.gst_token, 0)
-                key = key.repeat([2, 1, 1])
+                key = key.repeat([B, 1, 1])
                 style_embedding = self.style_attention(query=query, keys=key)  # [B,1,128]
             else:
                 style_embedding = reference_outputs.unsqueeze(1)
         else:
             print('use random weight for GST')
 
-            rand_weights = torch.randn([hparams.num_heads, hparams.style_token])
+            rand_weights = torch.zeros([hparams.num_heads/2, hparams.style_token]).uniform_(-2,5)
             if torch.cuda.is_available():
                 rand_weights = rand_weights.cuda()
             rand_weights = F.softmax(rand_weights)
             style_embedding = torch.matmul(rand_weights, F.tanh(self.gst_token))
-            style_embedding = style_embedding.view([1, 1, hparams.num_heads * self.gst_token.size(1)])
+            style_embedding = style_embedding.view([1, 1, hparams.num_heads/2 * self.gst_token.size(1)])
 
         # add style embedding to every text encoder state
         style_embedding = style_embedding.repeat(1, encoder_outputs.size(1), 1)
